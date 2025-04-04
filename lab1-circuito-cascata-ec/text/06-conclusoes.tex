@@ -1,0 +1,13 @@
+\section{Conclusão}
+
+A análise teórica, simulação no LTSpice e medições experimentais confirmaram o correto funcionamento do amplificador em cascata. Os resultados mostraram boa coerência entre si, validando o projeto e a precisão dos cálculos iniciais.
+
+A atividade destacou a importância da análise DC e AC para o dimensionamento correto dos componentes, além de evidenciar como as impedâncias de entrada e saída influenciam diretamente o ganho de tensão. Os transistores operaram na região ativa, assegurando amplificação linear e eficiente do sinal.
+
+Foram observados ganhos de tensão consistentes, tanto com carga quanto sem carga, e a análise das formas de onda demonstrou boa linearidade e ausência de distorções relevantes. A comparação entre os dados teóricos, simulados e práticos mostrou variações mínimas, atribuídas às tolerâncias dos componentes e limitações de medição. 
+
+O único ponto que apresentou discrepância significativa foi o ganho de tensão medido com e sem carga, onde o valor medido foi consideravelmente menor que o esperado. Acreditamos que essa diferença esteja relacionada a um erro de medição, pois ao medir o ganho de tensão sem carga do primeiro estágio, retiramos a carga do circuito ($R_L$), mas não o capacitor de acoplamento entre os estágios, como foi feito na simulação e na análise teórica. Essa diferença de abordagem pode ter influenciado os resultados. Além disso, a tensão $V_{B1}$ foi medida na entrada do circuito, e não diretamente na base de Q1. Como a tensão na base é menor que na entrada, isso também pode ter contribuído para a divergência.
+
+Por fim, Essa experiência reforçou a importância da integração entre teoria, simulação e prática para o domínio do funcionamento de amplificadores, contribuindo para o desenvolvimento de competências essenciais em eletrônica aplicada na Engenharia da Computação
+
+\nocite{boylestad, malvino}

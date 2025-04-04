@@ -1,0 +1,29 @@
+# Arquivos auxiliares comuns do LaTeX
+*.aux
+*.log
+*.toc
+*.out
+*.gz
+*.nav
+*.snm
+*.synctex.gz
+*.fdb_latexmk
+*.fls
+*.bbl
+*.blg
+*.brf
+*.lof
+*.lot
+*.lol
+*.dvi
+*.ps
+
+# Arquivos gerados por editores
+*.swp
+*~
+*.bak
+
+# Diretórios ocultos ou temporários
+._*
+Thumbs.db
+.DS_Store

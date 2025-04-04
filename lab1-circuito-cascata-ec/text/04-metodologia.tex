@@ -1,0 +1,176 @@
+\section{Circuito Proposto}
+
+O circuito adotado para a atividade prática é um amplificador em cascata com dois estágios, ambos utilizando transistores bipolares NPN. Seu objetivo é amplificar um sinal senoidal de $1\,$kHz com amplitude de $10\,$mV (pico).
+
+A Figura~\ref{fig:circuito} apresenta o esquemático do amplificador em cascata, utilizado tanto na montagem prática em bancada quanto nas simulações realizadas no LTSpice.
+
+\chamaimg{1}{figure/circuito_proposto.png}{Circuito amplificador em cascata EC.}{fig:circuito}
+
+\section{Previsão Teórica}
+
+Nessa seção, apresentamos a analise teórica do circuito amplificador em cascata. O circuito é composto por dois estágios de amplificação, cada um utilizando um transistor bipolar NPN. O objetivo é analisar o comportamento do circuito em correntes contínuas (DC) e alternadas (AC), além de calcular o ganho de tensão e as impedâncias de entrada e saída.
+
+\subsection{Análise DC do Circuito}
+
+A análise DC do circuito amplificador em cascata é fundamental para determinar o ponto de operação (Q-Point) de cada transistor. O Q-Point é a condição de polarização que garante que os transistores operem na região ativa, permitindo a amplificação do sinal. Com isso, podemos determinar as tensões e correntes de polarização, que são essenciais para o funcionamento adequado do circuito.
+
+Olhando do ponto de vista DC do circuito, ambos os transistores utilizam o mesmo circuito de polarização. Portanto, podemos considerar os seguintes valores:
+
+\begin{align}
+    V_{CC} &= 12~V \\
+    V_{BE} &= 0,7~V \\
+    R_C &= 3,9k~\Omega \\
+    R_E &= 1k~\Omega \\
+    {\beta} &= 150 \\
+    R_{B1} &= 15k~\Omega \\
+    R_{B2} &= 68k~\Omega
+\end{align}
+
+O resistor de polarização $R_B$ é dividido em dois resistores, $R_{B1}$ e $R_{B2}$, que formam um divisor de tensão. A corrente de polarização do transistor é dada pela seguinte relação:
+
+\begin{align}
+    V_B &= \frac{V_{CC} \cdot R_{B2}}{R_{B1} + R_{B2}} = 12~V \cdot \frac{15k}{15k + 68k} = 2,2~V \\
+    V_E &= V_B - V_{BE} = 2,2~V - 0,7~V = 1,5~V \\
+    I_E &= \frac{V_E}{R_E} = \frac{1,5~V}{1k~\Omega} = 1,5~mA \\
+    I_C &= I_E = 1,5~mA \\
+    V_{CE} &= V_{CC} - I_C \cdot (R_C + R_E) = 12~V - 1,5~mA \cdot (3,9k + 1k) = 4,7~V
+\end{align}
+
+Agora que já realizamos a analise DC do circuito, partimos para a analise AC.
+
+\subsection{Análise AC do Circuito}
+
+Para a análise AC do circuito, devemos considerar o equivalente AC do amplificador em cascata. O circuito equivalente AC é obtido substituindo os capacitores de acoplamento por curtos-circuitos e removendo as fontes de polarização. A partir disso, teremos que ambos os resistores de polarização $R_{B1}$ e $R_{B2}$ ficarão em paralelo, formando uma resistência equivalente, que será a resistência $R_B$ do circuito.
+
+\chamaimg{0.8}{figure/equivalente_ac.png}{Circuito equivalente AC do amplificador em cascata.}{fig:equivalente_ac}
+
+Para prosseguir com a análise e calcular as impedâncias de entrada, saída e o ganho teórico do circuito, utilizamos o modelo de pequenos sinais de Ebers-Moll. Nesse modelo, o transistor é representado por uma resistência interna $r'_e$ entre base e emissor, e uma fonte de corrente controlada $I_C$ entre coletor e base.
+
+Essa valor $r'_e$, quando refletido para a base, assume o valor $\beta \cdot r'_e$, onde $\beta$ é o ganho de corrente do transistor. Essa resistência interna é dada pela relação entre a tensão térmica $V_T$ e a corrente de coletor $I_C$. A tensão térmica é um valor constante, aproximadamente $26~mV$ a temperatura ambiente. Portanto, podemos calcular a resistência do transistor da seguinte forma:
+
+\begin{align}
+    V_T &= 26~mV \\
+    I_C &= 1,5~mA \\
+    r'_e &= \frac{V_T}{I_C} = \frac{26~mV}{1,5~mA} = 17,3~\Omega
+\end{align}
+
+Para calcularmos a resistência de entrada do transistor, utilizamos o ganho do resistor $\beta$ como 150. Entretanto, como o segundo estágio não possui um capacitor de bypass, a resistência de entrada do segundo estágio é dada pela soma da resistência interna do transistor e a resistência de emissor $r_e$. Vale ressaltar que essa resistência de emissor está descrita com letras minúsculas, pois se trata da resistência de emissor a partir da análise AC, e não da resistência de polarização do circuito.
+
+\begin{align}
+    r_{in1} &= \beta \cdot (r'_e + r_e) = 150 \cdot (17,3~\Omega + 0~\Omega) = 2,6k~\Omega \\
+    r_{in2} &= \beta \cdot (r'_e + r_e) = 150 \cdot (17,3~\Omega + 1k~\Omega) = 153,6k~\Omega
+\end{align}
+
+Com isso, podemos demonstrar o modelo do nosso circuito para pequenos sinais, que é representado na Figura \ref{fig:modelo_pequenos_sinais}.
+
+\chamaimg{1}{figure/modelo_pequenos_sinais.png}{Modelo de pequenos sinais do amplificador em cascata.}{fig:modelo_pequenos_sinais}
+
+A partir desse modelo, podemos calcular as impedâncias de entrada e saída de cada estágio. A resistência de entrada de cada estágio é dada pela relação entre a resistência interna do transistor e a sua resistência de polarização. Assim sendo, podemos calcular a resistência de entrada de cada estágio da seguinte forma:
+
+\begin{align}
+    Z_{in1} &= R_{B1}~||~R_{B2}~||~r_{in1} \\
+    Z_{in1} &= 15k~||~68k~||~2,6k \\
+    Z_{in1} &= 2,1k~\Omega
+\end{align}
+
+\begin{align}
+    Z_{in2} &= R_{B1}~||~R_{B2}~||~r_{in2} \\
+    Z_{in2} &= 15k~||~68k~||~153,6k \\
+    Z_{in2} &= 11,4k~\Omega
+\end{align}
+
+Como tratam-se de dois estágios em cascata, temos que a impedância de saída de cada estágio é dada pela resistência de coletor $R_C$ do transistor. Portanto, a impedância de saída de cada estágio é dada por:
+
+\begin{align}
+    Z_{out1} &= R_C = 3,9k~\Omega \\
+    Z_{out2} &= R_C = 3,9k~\Omega
+\end{align}
+
+Dando sequência, devemos calcular o ganho de tensão do circuito. O ganho de tensão em um amplificador emissor comum (EC) é dado pela seguinte relação:
+
+\begin{align}
+    A_v &= - \frac{R_C || R_L}{r'_e + r_e}
+\end{align}
+
+Sendo assim, temos os seguintes ganhos de tensão com carga para cada estágio, considerando que a carga do primeiro estágio é a resistência de entrada do segundo estágio, e a carga do segundo estágio é a própria carga do circuito:
+
+\begin{align}
+    A_{v1} &= - \frac{R_C || R_L}{r'_e + r_e} = - \frac{3,9k~||~11,4k}{17,3 + 0} = - 168 \\
+    A_{v2} &= - \frac{R_C || R_L}{r'_e + r_e} = - \frac{3,9k~||~8,2k}{17,3 + 1k} = - 2,6
+\end{align}
+
+Sem carga, o ganho de tensão de cada estágio é dado conforme a relação:
+
+\begin{align}
+    A_{v1(s/c)} &= - \frac{R_C}{r'_e + r_e} = - \frac{3,9k}{17,3 + 0} = - 225,4\\
+    A_{v2(s/c)} &= - \frac{R_C}{r'_e + r_e} = - \frac{3,9k}{17,3 + 1k} = - 3,8
+\end{align}
+
+Por fim, podemos calcular as tensões de sinal em cada estágio. A tensão de sinal em cada estágio é dada pela relação entre a tensão de entrada e o ganho de tensão do circuito. Nesse contexto, não podemos deixar de lado o resistor que está em série com a entrada do circuito, que é o resistor de realimentação $R_f$. Portanto, a tensão de sinal em cada estágio é dada pela seguinte relação:
+
+\begin{align}
+    V_{B1} &= \frac{Z_{in1}}{Z_{in1} + R_f} \cdot V_{in} = \frac{2,1k}{2,1k + 1k} \cdot 10~mV = 6,8~mV \\
+    V_{C1} &= V_{B1} \cdot A_{v1} = 6,8~mV \cdot - 168 = -1,2~V \\
+    V_{B2} &= V_{C1} = -1,2~V \\
+    V_{C2} &= V_{B2} \cdot A_{v2} = -1,2~V \cdot - 2,6 = 3,1~V
+\end{align}
+
+Dessa mesma forma, se quisermos observar o ganho do circuito sem a carga, temos o seguinte resultado:
+
+\begin{align}
+    V_{B1} &= \frac{Z_{in1}}{Z_{in1} + R_f} \cdot V_{in} = \frac{2,1k}{2,1k + 1k} \cdot 10~mV = 6,8~mV \\
+    V_{C1} &= V_{B1} \cdot A_{v1(s/c)} = 6,8~mV \cdot - 225,4 = -1,5~V \\
+    V_{B2} &= V_{C1} = -1,2~V \\
+    V_{C2} &= V_{B2} \cdot A_{v2(s/c)} = -1,2~V \cdot - 3.8 = 4,6~V \\
+\end{align}
+
+Interessante notar que mesmo trabalhando com um circuito de emissores comum, o sinal de saída não está invertido. Isso ocorre pois o primeiro estágio inverte o sinal, enquanto o segundo estágio inverte novamente, resultando em um sinal de saída não invertido.
+
+\section{Simulação}
+
+Para prever o comportamento do circuito, foi utilizada a ferramenta LTSpice, que permitiu analisar o regime de polarização, ganho e resposta em frequência do amplificador. A simulação possibilitou a observação do comportamento ideal do circuito.
+
+O circuito foi montado no software de simulação conforme a Figura \ref{fig:simulacao_esquematico}. Os componentes utilizados foram os mesmos do circuito montado em bancada, com as mesmas configurações de polarização e acoplamento.
+
+\chamaimg{1}{figure/simulacao_esquematico.png}{Esquemático do circuito amplificador em cascata montado no LTSpice.}{fig:simulacao_esquematico}
+
+Utilizando-se da função análise gráfica do LTSpice, foram obtidos os gráficos das tensões de entrada e saída do circuito, permitindo a comparação entre os resultados simulados e os resultados experimentais. A seguir, apresentamos os gráficos obtidos na simulação.
+
+\chamaimg{1}{figure/grafico_simulacao.png}{Gráfico das tensões de entrada e saída do circuito amplificador em cascata.}{fig:grafico_simulacao}
+
+Além disso, também foram analisados as formas de onda da base e do coletor de cada transistor, permitindo observar o ganho de tensão em cada estágio. Os gráficos obtidos na simulação estão apresentados a seguir.
+
+\chamaimg{1}{figure/grafico_simulacao2.png}{Gráfico das tensões da base e do coletor de cada transistor.}{fig:grafico_simulacao2}
+
+A fim de compreender com maior profundidade o comportamento do circuito, foram realizadas simulações adicionais, retirando os capacitores de acoplamento entre os estágios. Essa abordagem permitiu observar o impacto da impedância de carga no desempenho do amplificador, além de possibilitar a análise do ganho de tensão em cada estágio sem a influência dos capacitores.
+
+\chamaimg{1}{figure/grafico_simulacao3.png}{Gráfico das tensões da base e do coletor do primeiro estágio, sem carga.}{fig:grafico_simulacao3}
+
+Por fim, retiramos recolocamos o capacitor de acoplamento entre os estágios, e retiramos o capacitor de acoplamento da saída do circuito. Essa abordagem permitiu observar o impacto da impedância de carga no desempenho do amplificador.
+
+\chamaimg{1}{figure/grafico_simulacao4.png}{Gráfico das tensões da base e do coletor do segundo estágio, sem carga.}{fig:grafico_simulacao4}
+
+Como pode ser observado, o circuito amplificador em cascata apresentou um bom desempenho nas simulações, com ganhos de tensão compatíveis com os valores teóricos e experimentais. A simulação permitiu validar as previsões teóricas e fornecer uma base sólida para a análise do circuito.
+
+\section{Medidas em Laboratório}
+
+A metodologia utilizada para a realização dessa atividade prática envolveu a montagem do circuito amplificador em cascata, seguido de medições experimentais para validar os resultados teóricos e simulados. A seguir, descrevemos os passos realizados:
+
+\begin{itemize}
+    \item Dois transistores bipolares NPN (2N3904 e BC337);
+    \item Resistores de polarização conforme o projeto;
+    \item Capacitores de acoplamento;
+    \item Fonte de alimentação DC de $V_{CC} = 12~V$;
+    \item Gerador de funções ajustado para fornecer um sinal senoidal de $1\,$kHz com amplitude de $10\,$mV (pico);
+    \item Osciloscópio digital para análise dos sinais;
+    \item Multímetro digital para medição das tensões DC.
+\end{itemize}
+
+Após a montagem, foram realizadas medições fundamentais para caracterizar o desempenho do amplificador em cascata. Os seguintes parâmetros foram analisados:
+
+\begin{itemize} 
+    \item Ponto de operação (Q-Point): Medição das tensões DC nos terminais dos transistores para verificar o correto funcionamento do circuito em regime estacionário.
+    \item Ganho de tensão ($A_v$):
+    \subitem Com carga: Utilizando o osciloscópio, foi medida a razão entre a amplitude da tensão de saída e a amplitude da tensão de entrada com carga conectada. As formas de onda foram registradas.
+    \subitem Sem carga: Repetiu-se o procedimento anterior com a carga desconectada, permitindo observar o impacto da impedância de carga no desempenho do amplificador.
+\end{itemize}
