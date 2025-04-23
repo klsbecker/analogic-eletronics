@@ -1,0 +1,10 @@
+\section{Conclusão}
+
+A prática permitiu analisar o comportamento de circuitos com amplificadores operacionais configurados como integrador e diferenciador, destacando suas respostas em frequência. O integrador atuou como um filtro passa-baixa, atenuando os sinais de alta frequência e mantendo o ganho elevado para baixas frequências. Já o diferenciador demonstrou um comportamento inverso, funcionando como um filtro passa-alta, com ganho crescente conforme a frequência aumenta, até atingir uma limitação imposta pelas características reais dos componentes.
+
+Na região próxima à frequência de corte, observamos que o desempenho ideal previsto em teoria começa a ser comprometido. Para o integrador, essa transição marca o início da queda de ganho, o que reduz a resposta a sinais mais rápidos. Apesar disso, o circuito ainda opera de forma estável, apenas com menor amplitude. Por outro lado, no diferenciador, a região da frequência de corte representa um ponto crítico: além de amplificar o sinal desejado, o circuito também amplifica ruídos de alta frequência e pode facilmente atingir saturação, tornando-se instável.
+
+Esses efeitos são consequência das limitações práticas dos amplificadores operacionais, como o slew rate, a largura de banda finita e a resposta em frequência não ideal. No diferenciador, o capacitor na entrada intensifica a sensibilidade a variações abruptas, tornando o circuito vulnerável a oscilações e ruídos. No integrador, o resistor de entrada e o capacitor no feedback suavizam o sinal, conferindo maior robustez ao circuito em situações práticas.
+
+Portanto, ao projetar filtros ativos com amplificadores operacionais, é essencial considerar o comportamento próximo à frequência de corte. Ignorar esses efeitos pode levar a distorções indesejadas ou até falhas no sistema. A análise experimental reforça a importância de ajustes finos nos componentes e da consideração das especificações reais dos operacionais para garantir um desempenho confiável em aplicações reais.
+\nocite{boylestad, malvino}

@@ -1,0 +1,115 @@
+\section{Metodologia}
+
+\subsection{Circuito Integrador}
+
+O circuito utilizado nesta etapa da atividade prática é um amplificador operacional configurado como integrador. Ele é composto por um resistor na entrada e um capacitor na malha de realimentação negativa. Essa configuração é mostrada na Figura~\ref{fig:integrador}, onde também está indicada a pinagem do CI LM741, que foi utilizado na montagem do circuito.
+
+\chamaimg{1}{figure/integrador.png}{Circuito integrador com AmpOp e pinagem do CI.}{fig:integrador}
+
+Inicialmente, foi realizado o calculo da frequência de corte teórica do circuito, considerando os valores dos componentes utilizados. O resistor utilizado na malha de realimentação foi de $100~k\Omega$, e o capacitor foi de $1,5~\si{\nano\farad}$. A frequência de corte do circuito integrador é dada pela relação:
+
+\begin{align}
+    f_c &= \frac{1}{2 \pi R_f C} \\
+    f_c &= \frac{1}{2 \pi \cdot 100~k\Omega \cdot 1,5~\si{\nano\farad}} \\
+    f_c &= 1061~Hz
+\end{align}
+
+Dessa forma, temos que teoricamente, o circuito integrador deve apresentar um ganho de $-3~dB$ na frequência de $1061~Hz$. Para frequências inferiores, o circuito deve se comportar como um amplificador inversor, enquanto para frequências superiores, o circuito deve se comportar como um filtro passa-baixa, com um ganho de $-20~dB/decada$.
+
+Juntamente disso, foi realizada a montagem do circuito integrador, conforme a Figura~\ref{fig:integrador}. O circuito foi alimentado com tensões de $+12~V$ e $-12~V$, e o sinal de entrada foi uma onda quadrada de $1~Vp$. A partir disso, foi ajustada a frequência do sinal de entrada até que a tensão de saída do circuito fosse reduzida a $0,707~Vp$. Essa frequência corresponde à frequência de corte do circuito integrador, como pode ser observado na Figura~\ref{fig:integrador-osc-1}.
+
+\chamaimg{1}{figure/integrador-osc-1.png}{Frequência de corte medida do circuito integrador.}{fig:integrador-osc-1}
+
+Onde obtivemos a seguinte relação entre a frequência de corte calculada e a frequência de corte medida:
+
+\begin{table}[H]
+    \centering
+    \caption{Frequência de corte do circuito integrador.}
+    \label{tab:resultados-integrador}
+    \begin{tabular}{|c|c|c|}
+        \hline
+        \textbf{Parâmetro} & \textbf{Teórico} & \textbf{Prático} \\ \hline
+        $f_c$             & 1061~Hz         & 990~Hz          \\ \hline
+    \end{tabular}
+\end{table}
+
+Pode-se observar que a frequência de corte medida está próxima da frequência de corte teórica, o que indica que o circuito está funcionando conforme o esperado, a diferença entre os valores pode ser atribuída a fatores como tolerância dos componentes, ruído e offset de entrada do amplificador operacional.
+
+Sendo assim, se aplicarmos um sinal de entrada com frequência menor que a frequência de corte, o circuito se comporta como um amplificador inversor, como pode ser observado na Figura~\ref{fig:integrador-osc-2}. Para isso, foi utilizado um sinal de entrada de $2~Vpp$ e uma frequência de $100~Hz$.
+
+\chamaimg{1}{figure/integrador-osc-2.png}{Sinal de entrada de $100~Hz$ e $1~Vp$.}{fig:integrador-osc-2}
+
+Como pode ser observado, a tensão de saída do circuito, nesse caso, onde o circuito opera como um amplificador inversor, é de $-20Vpp$. Isso confirma que o circuito se comporta como um amplificador inversor para frequências inferiores a $f_c$, pois está diretamente relacionado com a relação entre a tensão de entrada e a tensão de saída do circuito integrador, que para frequências menores que a frequência de corte é de $-20~dB$.
+
+Entretanto, para frequências superiores a $f_c$, o circuito se comporta como um filtro passa-baixa, com um ganho de $-20~dB/decada$. Para iniciar a analise do circuito, foi aplicado uma onda quadrada de $1~Vpp$ e uma frequência de 10 vezes maior que a frequência de corte, ou seja, $10~kHz$. A tensão de saída do circuito foi medida e comparada com a tensão de entrada, como pode ser observado na Figura~\ref{fig:integrador-osc-3}.
+
+\chamaimg{1}{figure/integrador-osc-3.png}{Sinal de entrada de $10~kHz$ e $1~Vpp$.}{fig:integrador-osc-3}
+
+Nesse caso, podemos claramente observar que o sinal de saída nesse cenário é correlato a integral do sinal de entrada, o que confirma o funcionamento do circuito integrador. Além disso, podemos observar que a tensão de saída do circuito é de $1,5~Vpp$, o que confirma que o circuito se comporta como um filtro passa-baixa, com um ganho de $-20~dB/decada$. Pois segue a teoria, a qual nos indica a seguinte relação entre a tensão de entrada e a tensão de saída do circuito integrador:
+
+\begin{align}
+    V_{opp} &= \frac{V_{ipp}}{4fRC} \\
+    V_{opp} &= \frac{1~Vpp}{4 \cdot 10~kHz \cdot 10~k\Omega \cdot 1,5~\si{\nano\farad}} \\
+    V_{opp} &= 1,5~Vpp
+\end{align}
+
+Da mesma forma, podemos fazer os cálculos para uma frequência de $5~kHz$, onde a tensão de entrada foi de $1~Vpp$ e a tensão de saída é dada por:
+
+\begin{align}
+    V_{opp} &= \frac{V_{ipp}}{4fRC} \\
+    V_{opp} &= \frac{1~Vpp}{4 \cdot 5~kHz \cdot 10~k\Omega \cdot 1,5~\si{\nano\farad}} \\
+    V_{opp} &= 3,3~Vpp
+\end{align}
+
+Ao aplicarmos um sinal de entrada de $1~Vpp$ e uma frequência de $5~kHz$, podemos observar na Figura~\ref{fig:integrador-osc-4} que a tensão de saída do circuito é de $3,1~Vpp$, o que confirma mais uma vez o comportamento do circuito integrador, visto que essa diferença entre os valores pode ser atribuída a fatores como tolerância dos componentes, ruído entre outras variáveis.
+
+\chamaimg{1}{figure/integrador-osc-4.png}{Sinal de entrada de $5~kHz$ e $1~Vpp$.}{fig:integrador-osc-4}
+
+Sendo assim, podemos comprovar que o circuito integrador se comporta como um filtro passa-baixa, com um ganho de $-20~dB/decada$, para frequências superiores a $f_c$, e como um amplificador inversor de $-20~dB$ para frequências inferiores a $f_c$. Além disso, podemos notar que quanto mais perto da frequência de corte, maior a diferença entre os valores teóricos e práticos, o que pode ser atribuído ao fato de que perto dessa região o circuito começa a apresentar perdas de sinal, e o capacitor começa a se comportar como um curto, o que pode gerar uma diferença entre os valores teóricos e práticos.
+
+\subsection{Circuito Diferenciador}
+
+O circuito utilizado nesta etapa da atividade prática é um amplificador operacional, o mesmo utilizado na etapa anterior, configurado como diferenciador. Ele é composto por um capacitor na entrada e um resistor na malha de realimentação negativa. Essa configuração é mostrada na Figura~\ref{fig:diferenciador}.
+
+\chamaimg{1}{figure/diferenciador.png}{Circuito diferenciador com AmpOp e pinagem do CI.}{fig:diferenciador}
+
+Inicialmente, foi realizado o calculo da frequência de corte teórica do circuito, considerando os valores dos componentes utilizados. O resistor utilizado foi de $10~k\Omega$, e o capacitor foi de $15~\si{\nano\farad}$. A frequência de corte do circuito diferenciador é dada pela relação:
+
+\begin{align}
+    f_c &= \frac{1}{2 \pi R C} \\
+    f_c &= \frac{1}{2 \pi \cdot 10~k\Omega \cdot 15~\si{\nano\farad}} \\
+    f_c &= 1061~Hz
+\end{align}
+
+Dessa forma, temos que teoricamente, o circuito diferenciador deve apresentar um ganho de $-3~dB$ na frequência de $1061~Hz$. Para frequências superiores a $f_c$, o circuito deve se comportar como um amplificador inversor, enquanto para frequências inferiores, o circuito deve se comportar como um filtro passa-alta, com um ganho de $-20~dB/decada$.
+
+Juntamente disso, foi realizada a montagem do circuito diferenciador, conforme a Figura~\ref{fig:diferenciador}. O circuito foi alimentado com tensões de $+12~V$ e $-12~V$, e o sinal de entrada foi uma onda quadrada de $1~Vp$. A partir disso, foi ajustada a frequência do sinal de entrada até que a tensão de saída do circuito fosse reduzida a $0,707~Vp$. Essa frequência corresponde à frequência de corte do circuito diferenciador, como pode ser observado na Figura~\ref{fig:diferenciador-osc-1}.
+
+\chamaimg{1}{figure/diferenciador-osc-1.png}{Frequência de corte medida do circuito diferenciador.}{fig:diferenciador-osc-1}
+
+Onde obtivemos a seguinte relação entre a frequência de corte calculada e a frequência de corte medida:
+
+\begin{table}[H]
+    \centering
+    \caption{Frequência de corte do circuito diferenciador.}
+    \label{tab:resultados-diferenciador}
+    \begin{tabular}{|c|c|c|}
+        \hline
+        \textbf{Parâmetro} & \textbf{Teórico} & \textbf{Prático} \\ \hline
+        $f_c$             & 1061~Hz         & 1110~Hz          \\ \hline
+    \end{tabular}
+\end{table}
+
+Pode-se observar que a frequência de corte medida está próxima da frequência de corte teórica, o que indica que o circuito está funcionando conforme o esperado, a diferença entre os valores pode ser atribuída a fatores como tolerância dos componentes, ruído e offset de entrada do amplificador operacional.
+
+Sendo assim, se aplicarmos um sinal de entrada com frequência maior que a frequência de corte, o circuito se comporta como um amplificador inversor, como pode ser observado na Figura~\ref{fig:diferenciador-osc-2}. Para isso, foi utilizado um sinal de entrada de $1~Vpp$ e uma frequência de 10 vezes maior que a frequência de corte, ou seja, $11~kHz$. A tensão de saída do circuito foi medida e comparada com a tensão de entrada, como pode ser observado na Figura~\ref{fig:diferenciador-osc-2}.
+
+\chamaimg{1}{figure/diferenciador-osc-2.png}{Sinal de entrada de $11~kHz$ e $1~Vpp$.}{fig:diferenciador-osc-2}
+
+Nesse caso, temos que tensão de saída foi de $9,4~Vpp$, o que confirma que o circuito se comporta como um amplificador inversor, visto que a relação entre a tensão de entrada e a tensão de saída do circuito diferenciador, para frequências superiores a $f_c$, é de $-20~dB$. 
+
+Agora, se pegarmos esse mesmo sinal triangular de entrada e alterarmos a frequência dele para a 10 vezes menor que a frequência de corte, ou seja, $100~Hz$, podemos observar na Figura~\ref{fig:diferenciador-osc-3} que a forma de onda da saída do circuito é a derivada do sinal de entrada, o que confirma o funcionamento do circuito diferenciador. 
+
+\chamaimg{1}{figure/diferenciador-osc-3.png}{Sinal de entrada de $100~Hz$ e $1~Vpp$.}{fig:diferenciador-osc-3}
+
+Da mesma forma que no circuito integrador, podemos observar que a resposta em frequência do circuito diferenciador é dada pela relação entre a tensão de entrada e a tensão de saída do circuito, que para frequências superiores a $f_c$ é igual $20log_{10}(\frac{R_f}{R})$, e para frequências inferiores a $f_c$ é igual a $-20~dB/decada$.

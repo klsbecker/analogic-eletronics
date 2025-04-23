@@ -1,0 +1,71 @@
+\section{Referencial Teórico}
+
+Amplificadores operacionais (AmpOps) são dispositivos eletrônicos amplamente utilizados em sistemas analógicos. Seu modelo ideal assume ganho infinito em malha aberta, impedância de entrada infinita e impedância de saída nula. Na prática, embora possuam limitações, os AmpOps reais apresentam características suficientes para desempenhar funções de amplificação, filtragem, operação matemática e condicionamento de sinais com alta precisão.
+
+\subsection{Características dos Amplificadores Operacionais}
+
+Um amplificador operacional típico possui duas entradas: uma inversora ($e_-$) e uma não-inversora ($e_+$), além de uma única saída. Quando configurado com realimentação negativa e operando dentro da região linear, o circuito ajusta automaticamente a saída para manter as tensões nas entradas virtualmente iguais ($e_+ \approx e_-$). 
+
+Esse fenômeno é conhecido como curto virtual. Diferente de um curto real, em que há fluxo de corrente entre os pontos, no curto virtual a diferença de potencial é zero, mas a corrente entre as entradas é nula, devido à alta impedância de entrada do amplificador. Ou seja, os terminais estão no mesmo potencial elétrico, mas não há conexão física ou condução de corrente entre eles.
+
+Essa condição permite simplificar a análise de circuitos com AmpOps, aplicando diretamente leis de Kirchhoff assumindo que $e_+ = e_-$ e que nenhuma corrente entra pelas entradas do amplificador.
+
+Dando sequência aos conceitos, podemos destacar algumas características importantes dos amplificadores operacionais:
+
+\begin{itemize}
+    \item Alta impedância de entrada ($Z_{in}$), minimizando o carregamento da fonte;
+    \item Baixa impedância de saída ($Z_{out}$), permitindo acoplamento eficiente com cargas subsequentes;
+    \item Largura de banda limitada e dependente do ganho;
+    \item Saturação da saída limitada pelas tensões de alimentação.
+\end{itemize}
+
+Essas propriedades tornam os AmpOps ideais para a implementação de circuitos como integradores e diferenciadores.
+
+\subsection{Circuito Integrador}
+
+O integrador é um circuito que realiza a operação matemática de integração, ou seja, a saída é proporcional à integral da entrada em relação ao tempo. O circuito integrador típico utiliza um amplificador operacional com um resistor e um capacitor na malha de realimentação, como mostrado na Figura~\ref{fig:integrador}.
+
+Nesse modelo de circuito, temos como sinal de entrada padrão uma onda quadrada, considerando esse cenário, quando temos um nível lógico alto na entrada, o capacitor começa a carregar, e a tensão de saída varia linearmente.
+
+Dessa forma, temos que a tensão de saída é dada por:
+
+\begin{equation}
+    V_{\text{out}}(t) = -\frac{1}{RC} \int V_{\text{in}}(t) \, dt
+\end{equation}
+
+Este circuito também pode ser visto como um filtro passa-baixa, onde a frequência de corte é determinada pela constante de tempo do circuito, que é o produto da resistência ($R$) e da capacitância ($C$):
+
+\begin{equation}
+    f_c = \frac{1}{2\pi R_{f}C}
+\end{equation}
+
+Para frequências muito superiores a $f_c$, o capacitor passa a se comportar como curto, e o circuito realiza a integração do sinal. Para frequências muito baixas, o ganho torna-se constante, assemelhando-se a um amplificador inversor.
+
+\subsection{Circuito Diferenciador}
+
+No diferenciador, a configuração é invertida em relação ao integrador. O capacitor é colocado na entrada do amplificador operacional, e o resistor na malha de realimentação. A tensão de saída é proporcional à taxa de variação da tensão de entrada, ou seja, a derivada da entrada em relação ao tempo.
+
+\begin{equation}
+    V_{\text{out}}(t) = -RC \frac{dV_{\text{in}}(t)}{dt}
+\end{equation}
+
+Trata-se de um filtro passa-alta com frequência de corte igualmente dada por:
+
+\begin{equation}
+    f_c = \frac{1}{2\pi RC}
+\end{equation}
+
+Em frequências muito superiores a $f_c$, o circuito realiza a diferenciação do sinal. Em frequências muito baixas, o ganho se estabiliza e o circuito se comporta como um amplificador inversor.
+
+\subsection{Limitações Práticas}
+
+Embora a teoria assuma comportamento ideal, diversos fatores afetam a performance real dos circuitos:
+
+\begin{itemize}
+    \item Ruído e offset de entrada;
+    \item Ganho finito em malha aberta;
+    \item Saturação da saída;
+    \item Resposta em frequência limitada.
+\end{itemize}
+
+A análise experimental é fundamental para validar o comportamento dos circuitos em condições reais, permitindo comparar os resultados com as previsões teóricas e compreender suas limitações práticas.
