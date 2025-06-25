@@ -1,0 +1,176 @@
+\section{Metodologia}
+O desenvolvimento deste filtro passa-baixas VCVS de quarta ordem seguiu uma metodologia estruturada, abrangendo as etapas de projeto teórico, dimensionamento de componentes, simulação e validação experimental. A seguir, detalhamos cada uma dessas etapas.
+
+\subsection{Requisitos do Projeto}
+Com base nas especificações fornecidas pelo professor, definiram-se os seguintes requisitos para o filtro:
+
+\begin{itemize}
+    \item \textbf{Tipo de Filtro:} Passa-baixas VCVS de quarta ordem com ganho.
+    \item \textbf{Aproximação:} Butterworth.
+    \item \textbf{Frequência de Corte ($f_c$):} 3 kHz, (conforme atribuído ao grupo Klaus PB/Gabriel SM).
+    \item \textbf{Tensão de Alimentação:} $\pm12 V$.
+    \item \textbf{Sinal de Entrada:} Sinal senoidal com amplitude de 1 V (pico).
+\end{itemize}
+
+\subsection{Dimensionamento do Circuito}
+O projeto do filtro foi realizado utilizando como base a aproximação de Butterworth, com os parâmetros de projeto definidos na seção anterior. O filtro foi projetado para ter uma resposta de quarta ordem, o que implica em dois estágios de segunda ordem em cascata.
+
+Como trata-se de um filtro ativo, utilizamos amplificadores operacionais (Amp-Ops) na configuração não inversora, garantindo que o sinal de saída não seja invertido. Dessa forma, o ganho do filtro é positivo, conforme especificado nos requisitos do projeto.
+
+\subsubsection{Definição dos Componentes Ativos}
+Para a implementação dos estágios VCVS, selecionamos o Amp-Op LM741. Este CI, amplamente conhecido e utilizado, oferece familiaridade e robustez para projetos de filtro em baixa frequência. Sua faixa de tensão de alimentação de $\pm12 V$ é compatível com os requisitos do projeto, e sua resposta em frequência é adequada para a faixa de 3 kHz.
+
+\subsubsection{Cálculo dos Componentes Passivos}
+Para o dimensionamento dos componentes passivos, seguimos a metodologia de calcular o valor do capacitor principal (C) e, em seguida, determinar o resistor (R) necessário para a frequência de corte de 3 kHz.
+
+\subsubsubsection{Cálculo do Capacitor Principal (C)}
+Utilizamos a seguinte fórmula para calcular o valor do capacitor principal, que define a frequência de corte do filtro:
+\begin{equation}
+    C = \frac{10^{-6}}{f_c} = \frac{10^{-6}}{3 \cdot 10^3} = 3,33~nF
+\end{equation}
+
+\subsubsubsection{Cálculo do Resistor (R)}
+Para determinar o resistor necessário para a frequência de corte de 3 kHz, utilizamos a relação entre a frequência de corte, o capacitor principal e o resistor:
+\begin{equation}
+    R = \frac{1}{2 \pi f_c C} = \frac{1}{2 \pi \cdot 3 \cdot 10^3 \cdot 3,33 \cdot 10^{-9}} \approx 15,9~k\Omega
+\end{equation}
+
+\subsubsubsection{Cálculo da Relação de Resistores}
+Para cada estágio do filtro, devemos calcular os valores da associação de resistores necessários para obter o ganho desejado. Utilizando a fórmula do ganho em um circuito VCVS, temos:
+\begin{equation}
+    A_V = 1 + \frac{R_f}{R_g}
+\end{equation}
+
+Onde $R_f$ é o resistor de realimentação (feedback) e $R_g$ é o resistor de ganho (gain). Dessa forma, podemos rearranjar a equação para encontrar o valor de $R_g$ necessário para cada estágio, dado o ganho desejado.
+\begin{equation}
+    R_g = {R_f} \cdot {A_V - 1}
+\end{equation}
+
+Para ambos estágios, arbitramos o valor de $R_f = 10~k\Omega$, e calculamos $R_g$ para obter o ganho necessário.
+\begin{align}
+    R_{g1} &= 10~k\Omega \cdot (1,152 - 1) \approx 1,52~k\Omega \\
+    R_{g2} &= 10~k\Omega \cdot (2,235 - 1) \approx 12,35~k\Omega
+\end{align}
+
+\subsubsection{Definição dos Valores Padrões}
+Para os valores dos componentes passivos, utilizamos os valores mais próximos disponíveis no mercado, conforme a tabela de valores padrão E12. Os valores escolhidos foram:
+
+\begin{itemize}
+    \item C: $3,3~nF$
+    \item R: $12~k\Omega + 3,9~k\Omega = 15,9~k\Omega$
+    \item $R_f$: $10~k\Omega$
+    \item $R_{g1}$: $1,5~k\Omega$
+    \item $R_{g2}$: $12~k\Omega + 330~\Omega = 12,33~k\Omega$
+\end{itemize}
+
+\subsubsection{Circuito Proposto}
+
+Na imagem \ref{fig:circuito_proposto}, apresentamos o circuito proposto, o qual foi esquematizado utilizando o software Multisim\textregistered, onde foram montados os dois estágios de filtro passa-baixas VCVS de quarta ordem, conforme os cálculos realizados anteriormente. O circuito foi projetado para atender aos requisitos especificados, incluindo a frequência de corte de 3 kHz e o ganho positivo.
+
+\chamaimg{1}{figure/circuito_proposto.png}{Circuito proposto montado no software Multisim\textregistered.}{fig:circuito_proposto}
+
+\subsection{Simulação}
+
+Para prever o comportamento do circuito, foi utilizada a ferramenta Multisim\textregistered, que permitiu analisar o circuito amplificador em cascata antes da montagem física. A simulação foi realizada com o objetivo de validar os cálculos teóricos e verificar se o circuito atenderia aos requisitos especificados. O circuito foi montado no software de simulação conforme a Figura \ref{fig:circuito_proposto}.
+
+A simulação foi configurada para analisar a resposta em frequência do circuito, utilizando um sinal de entrada senoidal com frequência de 3 kHz e amplitude de 1 V (pico).
+
+Utilizando do instrumento de osciloscópio do software, foi possível observar as formas de onda das tensões de entrada e saída do circuito para a frequência de corte especificada. O gráfico resultante pode ser visto na Figura \ref{fig:3khz_simulacao}, onde as tensões de entrada e saída para essa determinada frequência foram plotadas ao longo do tempo.
+
+\chamaimg{1}{figure/3khz_simulacao.png}{Gráfico das tensões de entrada e saída do circuito para a frequência de 3 kHz.}{fig:3khz_simulacao}
+
+Como pode ser observado, a tensão de saída apresenta uma amplitude elevada em relação à tensão de entrada, indicando que o ganho do circuito está funcionando conforme o esperado.
+
+Além disso, ainda no ambiente de simulação, foi possível analisar a resposta em frequência do circuito, verificando o ganho e a fase em diferentes frequências. A seguir, apresentamos o gráfico de Bode obtido na simulação, que mostra a magnitude e a fase do ganho do circuito ao longo de uma faixa de frequências.
+
+\chamaimg{1}{figure/bode_simulacao.png}{Gráfico de Bode da resposta em frequência do circuito.}{fig:bode_simulacao}
+
+Como podemos observar no gráfico de Bode, o circuito apresenta uma resposta de quarta ordem, com uma frequência de corte em torno de 3 kHz. A magnitude do ganho diminui suavemente após essa frequência, confirmando a característica Butterworth do filtro, chegando a uma atenuação de cerca de 80 dB por década, o que é esperado para um filtro de quarta ordem.
+
+Além disso, para que possamos verificar se o circuito foi corretamente dimensionado para a frequência de corte de 3 kHz, é necessário calcular a diferênça entre o ganho na banda passante e o ganho na frequência de corte. Para isso, utilizamos a seguinte fórmula:
+
+\begin{equation}
+    \Delta A_V = A_V(f_c) - A_V(f_{passante})
+\end{equation}
+
+\begin{equation}
+    \Delta A_V = 5,3380~dB - 8,1916~dB = -2,8536~dB
+\end{equation}
+
+A diferença de ganho entre a frequência de corte e a banda passante é de aproximadamente $-2,85~dB$, o que indica que o circuito está bem ajustado para a frequência de corte especificada. Dessa forma, a simulação confirmou que o circuito amplificador em cascata atende aos requisitos do projeto, apresentando um ganho positivo e uma resposta de frequência adequada.
+
+\subsection{Montagem do Circuito em Laboratório}
+Após a validação teórica e simulação do circuito amplificador em cascata, foi realizada a montagem física do circuito em laboratório. A montagem foi feita seguindo o esquema apresentado na Figura \ref{fig:circuito_proposto}, utilizando os componentes selecionados e os valores calculados anteriormente.
+
+\subsubsection{Componentes Utilizados}
+Os componentes utilizados na montagem do circuito foram:
+
+\begin{table}[H]
+\centering
+\begin{tabular}{|c|c|}
+\hline
+\textbf{Qtd} & \textbf{Componente} \\
+\hline
+2 & AmpOp LM741 \\
+\hline
+4 & Capacitor de $3,3~nF$ \\
+\hline
+5 & Resistor de $12~k\Omega$ \\
+\hline
+4 & Resistor de $3,9~k\Omega$ \\
+\hline
+2 & Resistor de $10~k\Omega$ \\
+\hline
+1 & Resistor de $1,5~k\Omega$ \\
+\hline
+1 & Resistor de $330~\Omega$ \\
+\hline
+\end{tabular}
+\caption{Componentes utilizados na montagem do circuito.}
+\label{tab:componentes_montagem}
+\end{table}
+
+A montagem foi realizada em uma protoboard, seguindo o esquema de ligação dos componentes conforme o circuito proposto. Os AmpOps foram alimentados com uma fonte de alimentação de $\pm12 V$, garantindo a sua operação adequada. Na imagem \ref{fig:montagem_fisica}, apresentamos a montagem física do circuito em laboratório.
+
+\chamaimg{1}{figure/montagem_fisica.png}{Montagem física do circuito em laboratório.}{fig:montagem_fisica}
+
+\subsubsection{Testes e Validação Experimental}
+Após a montagem do circuito, foram realizados testes para validar o funcionamento do filtro passa-baixas VCVS de quarta ordem. Os testes incluíram a aplicação de um sinal senoidal de entrada com utilizando a frequência de 3 kHz e amplitude de 1 V (pico), conforme especificado nos requisitos do projeto. 
+
+A tensão de saída foi medida e comparada com a tensão de entrada, verificando se o ganho do circuito estava dentro dos parâmetros esperados, conforme pode ser visto na imagem \ref{fig:3khz_montagem}.
+
+\chamaimg{1}{figure/3khz_montagem.png}{Gráfico das tensões de entrada e saída para 3 KHz.}{fig:3khz_montagem}
+
+Como ponto de controle, verificamos que a tensão de saída medida estava condizente com a tensão de saída simulada, confirmando que o circuito estava funcionando corretamente. 
+
+Dessa forma, continuamos com a análise da resposta em frequência do circuito, utilizando o osciloscópio para observar a magnitude em diferentes frequências. Como não foi possível utilizar um equipamento de análise de espectro, utilizamos o osciloscópio para medir a tensão de saída em diferentes frequências, sendo elas uma decada abaixo e uma decada acima da frequência de corte, ou seja, 300 Hz e 30 kHz, juncamente com as frequências uma oitava abaixo e uma oitava acima da frequência de corte, ou seja, 1,5 kHz e 6 kHz.
+
+A seguir podemos verificar os gráficos obtidos para as tensões de entrada e saída do circuito para as frequências de 300 Hz, 1,5 kHz, 6 kHz e 30 kHz.
+
+\chamaimg{1}{figure/300hz_montagem.png}{Gráfico das tensões de entrada e saída para 300 Hz.}{fig:300hz_montagem}
+
+\chamaimg{1}{figure/1_5khz_montagem.png}{Gráfico das tensões de entrada e saída para 1,5 kHz.}{fig:1_5khz_montagem}
+
+\chamaimg{1}{figure/6khz_montagem.png}{Gráfico das tensões de entrada e saída para 6 kHz.}{fig:6khz_montagem}
+
+\chamaimg{1}{figure/30khz_montagem_ruido.png}{Gráfico das tensões de entrada e saída para 30 kHz.}{fig:30khz_montagem_ruido}
+
+Como pode ser observado nas imagens, todos os gráficos, exceto o de 30 kHz, apresentam sinais de saída facilmente identificáveis. No entanto, nesse último caso, o sinal de saída apresenta um ruído significativo, o que pode ser atribuído à alta alta atenuação do filtro para essa frequência, a qual, segundo a simulação, é de aproximadamente 71 dB se comparado com o sinal de entrada. Esse ruído pode ser causado por interferências eletromagnéticas ou limitações do equipamento utilizado para medir a tensão de saída.
+
+Sendo assim, visando a correta analise do circuito e a aplicação prática do que aprendemos durante esse semestre, resolvemos criar um novo filtro passa-baixas, utilizando apenas componentes passivos, ou seja, um filtro RC passivo. Esse filtro terá como objetivo filtrar o sinal de saída para essa frequência de 30 kHz, reduzindo o ruído e permitindo uma melhor visualização do sinal de saída.
+
+Para isso, arbitramos a frequência de corte do filtro RC passivo em 300 KHz, o que tem por finalidade garantir que o sinal de saída do filtro ativo passe sem atenuação significativa, enquanto o ruído de alta frequência seja atenuado. Sendo assim, arbitramos o valor do resistor como $R = 1~k\Omega$ e calculamos o valor do capacitor como:
+\begin{equation}
+    C = \frac{1}{2 \pi f_c R} = \frac{1}{2 \pi \cdot 300 \cdot 10^3 \cdot 1 \cdot 10^3} = 53,05~pF
+\end{equation}
+
+Utilizando o valor padrão mais próximo, escolhemos $C = 47~pF$. A partir disso, montamos o filtro RC passivo em série com a saída do filtro ativo, de forma que não afete o sinal de saída do filtro ativo, mas que atue como um filtro passa-baixas para o ruído de alta frequência.
+
+Refizemos os testes com o sinal de entrada de 30 kHz, e agora podemos observar que o ruído foi significativamente reduzido, permitindo uma melhor visualização do sinal de saída. A seguir, apresentamos o gráfico das tensões de entrada e saída do circuito com o filtro RC passivo adicionado.
+
+\chamaimg{1}{figure/30khz_montagem_filtro.png}{Gráfico das tensões de entrada e saída para 30 kHz com o filtro RC passivo.}{fig:30khz_montagem}
+
+
+
+
+

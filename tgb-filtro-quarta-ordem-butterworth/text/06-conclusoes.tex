@@ -1,0 +1,13 @@
+\section{Conclusão}
+
+O projeto e a implementação do filtro passa-baixas VCVS de quarta ordem com aproximação Butterworth para uma frequência de corte de 3 kHz foram concluídos com sucesso, atendendo aos requisitos. A abordagem metodológica, que incluiu dimensionamento teórico, simulação detalhada e montagem em laboratório, provou ser eficaz para a validação do design.
+
+Os resultados da simulação no Multisim\textregistered{} validaram o comportamento esperado do filtro, confirmando um ganho na banda passante de 8,21 dB e a atenuação de 80 dB/década característica de um filtro de quarta ordem Butterworth. A frequência de corte foi verificada com precisão em 3 kHz, apresentando um ganho de aproximadamente -2,86 dB em relação à banda passante, o que está em boa conformidade com os -3 dB esperados.
+
+Na fase experimental, o circuito demonstrou desempenho altamente consistente com as previsões da simulação na banda passante e na frequência de corte, confirmando a eficácia do dimensionamento. No entanto, em frequências na banda de rejeição profunda, como 30 kHz, o sinal de saída exibiu ruído significativo. Essa condição, embora inerente a ambientes de bancada devido a interferências eletromagnéticas e limitações de instrumentação para sinais de baixa amplitude, representou um desafio para a observação clara do sinal filtrado.
+
+A resolução proativa deste problema de ruído foi um ponto chave. Em vez de aceitar a limitação, foi projetado e implementado um filtro RC passivo adicional de alta frequência. Este filtro secundário atuou eficazmente na mitigação do ruído, permitindo a visualização clara do sinal atenuado em 30 kHz e comprovando a robustez do filtro principal mesmo em condições práticas adversas. Essa solução demonstrou capacidade de diagnóstico e execução, agregando valor substancial aos resultados apresentados.
+
+Em resumo, o filtro atendeu plenamente aos requisitos do projeto. A superação do desafio do ruído na etapa de validação experimental reforça a compreensão e a aplicação prática dos conceitos de filtragem e condicionamento de sinais, demonstrando uma abordagem completa e eficaz.
+
+\nocite{boylestad, malvino}

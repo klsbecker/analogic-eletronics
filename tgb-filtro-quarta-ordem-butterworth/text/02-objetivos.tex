@@ -1,0 +1,68 @@
+\section{Referêncial Teórico}
+
+\subsection{Fundamentos de Filtros Eletrônicos}
+
+\subsubsection{Definição}
+Filtros eletrônicos são circuitos que processam seletivamente sinais baseados em sua frequência. A função principal é distinguir e manipular componentes espectrais, permitindo a passagem de frequências desejadas (banda passante) e atenuando as indesejadas (banda de rejeição). Isso é crítico para condicionamento de sinal, supressão de ruído e extração de informação em sistemas eletrônicos.
+
+\subsubsection{Classificação}
+Filtros são classificados por sua resposta em frequência, topologia e ordem:
+
+\begin{itemize}
+    \item \textbf{Tipos de Resposta:}
+        \begin{itemize}
+            \item \textbf{Passa-Baixas (Low-Pass):} Permitem frequências abaixo do ponto de corte ($f_c$) e atenuam as acima.
+            \item \textbf{Passa-Altas (High-Pass):} Permitem frequências acima de $f_c$ e atenuam as abaixo.
+            \item \textbf{Passa-Faixa (Band-Pass):} Permitem uma faixa específica de frequências, atenuando as abaixo e acima dessa faixa.
+            \item \textbf{Rejeita-Faixa (Band-Stop):} Atuam para atenuar uma faixa específica de frequências, permitindo as abaixo e acima dessa faixa.
+        \end{itemize}
+    \item \textbf{Topologia:}
+        \begin{itemize}
+            \item \textbf{Passivos:} Compostos apenas por componentes passivos como resistores, capacitores e indutores. São simples e robustos, mas limitados em ganho e seletividade.
+            \item \textbf{Ativos:} Utilizam componentes ativos, como amplificadores operacionais (Amp-Ops), além de outros componentes passivos. Requerem fonte de alimentação, mas permitem a amplificação do sinal, maior flexibilidade no projeto e melhor isolação entre as etapas.
+        \end{itemize}
+    \item \textbf{Ordem:}
+        \begin{itemize}
+            \item A ordem do filtro é determinada pela quantidade de elementos reativos (capacitores ou indutores) que efetivamente contribuem para a filtragem. Uma ordem maior resulta em uma transição mais abrupta entre a banda passante e a banda de rejeição. Isso se traduz em uma maior taxa de atenuação fora da banda desejada, por exemplo, 20 dB por década por cada ordem de filtro.
+        \end{itemize}
+\end{itemize}
+
+\subsubsection{Parâmetros de Projeto}
+Os principais parâmetros a serem considerados no projeto de filtros incluem:
+\begin{itemize}
+    \item \textbf{Frequência de Corte ($f_c$):} Ponto onde o ganho do filtro cai para -3 dB (metade da potência) em relação ao ganho da banda passante.
+    \item \textbf{Ganho de Banda Passante (K ou $A$):} Amplificação do sinal na banda de frequências permitida. Em filtros ativos, pode ser maior que a unidade.
+    \item \textbf{Fator de Qualidade (Q):} Medida da seletividade do filtro, definida como a razão entre a frequência central e a largura de banda. Filtros com Q alto têm uma resposta mais estreita e seletiva.
+    \item \textbf{Aproximação de Resposta:} Define o comportamento da magnitude e fase do filtro:
+    \begin{itemize}
+        \item \textbf{Butterworth:} Caracteriza-se por uma resposta maximamente plana (sem ondulações) na banda passante e uma fase linear. A atenuação cresce suavemente fora da banda passante, com uma taxa de atenuação de 20 dB por década por ordem.
+        \item \textbf{Chebyshev:} Apresenta ondulações na banda passante, mas uma transição mais rápida para a banda de rejeição. A atenuação é mais agressiva, com uma taxa de 20 dB por década por ordem, mas com ondulações na banda passante.
+        \item \textbf{Bessel:} Foca na linearidade de fase, ideal para aplicações onde a preservação de forma de onda é crítica. A atenuação é mais suave, com uma taxa de 6 dB por década por ordem, resultando em uma resposta de fase mais linear, mas com uma transição mais lenta.
+    \end{itemize}
+\end{itemize}
+
+\subsection{Projeto de Filtro de Quarta Ordem Butterworth}
+
+\subsubsection{Cascata de Filtros}
+Um filtro de quarta ordem é construído pela cascata de dois estágios independentes de segunda ordem. Cada estágio de segunda ordem contribuirá com dois polos, somando os quatro polos necessários para a quarta ordem.
+
+\chamaimg{1}{figure/cascata_filtros.png}{Cascata de dois filtros de segunda ordem para formar um filtro de quarta ordem.}{fig:cascata_filtros}
+
+\subsubsection{Parâmetros Butterworth de Quarta Ordem}
+Para obter uma resposta Butterworth, os dois estágios de segunda ordem devem ser dimensionados com fatores de qualidade ($Q$) e ganhos ($A_V$) específicos, garantindo a performance de 4ª ordem.
+
+\begin{itemize}
+    \item \textbf{Fator de Qualidade:}
+    \begin{itemize}
+        \item \textbf{1º Estágio ($Q_1$):} $0,541$
+        \item \textbf{2º Estágio ($Q_2$):} $1,306$
+        \item \textbf{Total ($Q_T$):} $Q_T = Q_1 \cdot Q_2 = 0,541 \cdot 1,306 = 0,707$
+    \end{itemize}
+    \item \textbf{Ganho:}
+    \begin{itemize}
+        \item \textbf{1º Estágio ($A_{V1}$):} $1,152$
+        \item \textbf{2º Estágio ($A_{V2}$):} $2,235$
+        \item \textbf{Total ($A_V$):} $A_{V1} \cdot A_{V2} = 1,152 \cdot 2,235 = 2,576$ ($8,21 \text{ dB}$)
+    \end{itemize}
+    \item \textbf{Frequência de Corte ($f_c$):} Ambos os estágios devem ser projetados para ter a mesma frequência de corte.
+\end{itemize}

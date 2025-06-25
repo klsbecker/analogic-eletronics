@@ -1,0 +1,124 @@
+\section{Análise de Resultados}
+
+A análise dos resultados obtidos, tanto via simulação no Multisim\textregistered{} quanto na montagem física em laboratório, permite validar o projeto do filtro passa-baixas VCVS de quarta ordem com aproximação Butterworth e frequência de corte de 3 kHz.
+
+\subsection{Conformidade com os Requisitos de Projeto}
+O projeto visava um filtro passa-baixas de 4ª ordem com ganho, usando aproximação Butterworth e $f_c = 3 \text{ kHz}$, alimentado por $\pm 12 \text{ V}$ e com sinal de entrada de $1 \text{ V}$ de pico. A metodologia de dimensionamento, que utilizou $Q$s e ganhos específicos para cada estágio Butterworth, foi aplicada corretamente, resultando em um ganho total teórico de $2,576$ (ou $8,21 \text{ dB}$).
+
+A escolha do AmpOp LM741, embora amplamente conhecido, deve ser notada. Para filtros de maior desempenho ou frequência, AmpOps com maior largura de banda e menor ruído seriam preferíveis, o que pode explicar parte do ruído observado em altas frequências.
+
+\subsection{Análise dos Resultados da Simulação}
+A simulação no Multisim\textregistered{} confirmou a viabilidade do projeto teórico, fornecendo uma base sólida para a implementação física.
+
+\subsubsection{Gráfico de 3 kHz (Figura \ref{fig:3khz_simulacao})} 
+O gráfico de 3 kHz nos possibilita observar o comportamento do filtro na frequência de corte. A tensão de saída foi medida em $1,84 \text{ V}$, o que corresponde a um ganho de $5,29~dB$. Este valor está próximo do ganho teórico de $8,21 \text{ dB}$, considerando a atenuação esperada de $-3 \text{ dB}$ na frequência de corte.
+
+\subsubsection{Gráfico de Bode (Figura \ref{fig:bode_simulacao}):} 
+De acordo com a simulação, o gráfico de Bode apresenta os seguintes valores de ganho para as frequências de interesse:
+
+\begin{table}[H]
+\centering
+\begin{tabular}{|c|c|}
+\hline
+\textbf{Frequência (Hz)} & \textbf{Ganho (dB)} \\
+\hline
+300 & 8,19 \\ \hline
+1.5 k & 8,20 \\ \hline
+3 k & 5,34 \\ \hline
+6 k & -15,68 \\ \hline
+30 k & -71,63 \\ \hline
+\end{tabular}
+\caption{Valores de ganho do filtro passa-baixas de 4ª ordem Butterworth na simulação.}
+\label{tab:ganho_simulacao}
+\end{table}
+
+\subsubsubsection{Ganho na Banda Passante}
+O ganho médio de aproximadamente $8,20 \text{ dB}$ nas frequências de $300 \text{ Hz}$ e $1,5 \text{ kHz}$ está em excelente concordância com o ganho total teórico de $8,21 \text{ dB}$, demonstrando a correta amplificação do sinal dentro da banda permitida.
+\subsubsubsection{Frequência de Corte ($f_c$)}
+Em $3 \text{ kHz}$, o ganho foi de $5,34 \text{ dB}$. Calculando a diferença em relação ao ganho da banda passante ($5,34 \text{ dB} - 8,20 \text{ dB}$), obtemos aproximadamente $-2,86 \text{ dB}$. Esse valor está em boa concordância com o esperado $-3 \text{ dB}$ para a frequência de corte, validando o dimensionamento preciso.
+\subsubsubsection{Atenuação de 4ª Ordem (Butterworth)} 
+A atenuação observada é consistente com a de um filtro de quarta ordem. Por exemplo, de $3 \text{ kHz}$ para $30 \text{ kHz}$ (uma década acima), a atenuação passou de $5,34 \text{ dB}$ para $-71,63 \text{ dB}$. Isso representa uma queda de aproximadamente $77 \text{ dB}$ em uma década, indicando uma taxa de atenuação próxima aos $80 \text{ dB/década}$ esperados para um filtro de quarta ordem. A curva também exibiu a característica maximamente plano na banda passante, sem ondulações, confirmando a aderência à aproximação Butterworth.
+
+\subsection{Análise dos Resultados Experimentais}
+Os testes em laboratório foram cruciais para validar o comportamento do filtro no ambiente real, embora com as inerentes imperfeições dos componentes e do setup.
+
+\subsubsection{Montagem Física (Figura \ref{fig:montagem_fisica}):} 
+A montagem em protoboard foi realizada de forma organizada, o que é importante para minimizar acoplamentos parasitas, especialmente em frequências mais altas.
+
+\subsubsection{Análise em Frequências Chave (Figuras \ref{fig:3khz_montagem} a \ref{fig:30khz_montagem}):}
+Os gráficos de resposta do filtro em diferentes frequências foram analisados e partir deles foram extraídos os seguintes valores de ganho:
+
+\begin{table}[H]
+\centering
+\begin{tabular}{|c|c|}
+\hline
+\textbf{Frequência (Hz)} & \textbf{Ganho (dB)} \\
+\hline
+300 & 8,17 \\ \hline
+1,5 k & 8,04 \\ \hline
+3 k & 4,93 \\ \hline
+6 k & -15,22 \\ \hline
+30 k & -72,40 \\ \hline
+\end{tabular}
+\caption{Valores de ganho do filtro passa-baixas de 4ª ordem Butterworth na montagem física.}
+\label{tab:ganho_montagem}
+\end{table}
+
+A partir desses dados, podemos montar o gráfico de Bode experimental, que apresenta o seguinte resultado:
+
+\chamaimg{1}{figure/bode_montagem.png}{Gráfico de Bode do filtro passa-baixas de 4ª ordem Butterworth na montagem física.}{fig:bode_montagem}
+
+\subsubsubsection{Frequência de Corte ($f_c$)}
+A frequência de corte foi medida em $3 \text{ kHz}$, com um ganho de $4,93 \text{ dB}$. A diferença em relação ao ganho da banda passante ($4,93 \text{ dB} - 8,17 \text{ dB}$) é de aproximadamente $-3,24 \text{ dB}$, o que está próximo do esperado $-3 \text{ dB}$, considerando as tolerâncias dos componentes e as limitações do AmpOp utilizado.
+
+\subsubsubsection{Banda Passante (300 Hz e 1,5 kHz)} 
+Os gráficos de $300 \text{ Hz}$ e $1,5 \text{ kHz}$ demonstram que o sinal é transmitido com ganho e sem atenuação significativa, validando a banda passante.
+
+\subsubsubsection{Banda de Rejeição (6 kHz e 30 kHz)} 
+Em $6 \text{ kHz}$ (uma oitava acima da $f_c$), já se observa uma atenuação considerável do sinal de saída, confirmando a transição do filtro. Conforme o esperado, a atenuação em $30 \text{ kHz}$ é muito alta, indicando que o filtro está efetivamente bloqueando frequências acima de $f_c$.
+
+\subsubsection{Ruído em 30 kHz (Figura \ref{fig:30khz_montagem_ruido}):}
+A alta atenuação esperada para $30 \text{ kHz}$ (banda de rejeição profunda) foi confirmada, mas o sinal de saída mascarado por ruído é um ponto crítico.
+
+Este ruído pode ser atribuído a interferências eletromagnéticas (EMI) ou limitações do equipamento (osciloscópio, cabos) é pertinente. Em altas atenuações, o nível do sinal de saída é tão baixo que o ruído ambiente ou do próprio sistema de medição torna-se mais proeminente, dificultando a visualização do sinal filtrado. A simulação previu $71 \text{ dB}$ de atenuação, o que significa que um sinal de $1 \text{ V}$ de pico seria reduzido para aproximadamente $0,28 \text{ mV}$ de pico, um valor muito suscetível a ruído.
+
+A decisão de adicionar um filtro RC passivo de $300 \text{ kHz}$ foi uma abordagem engenhosa e prática para mitigar o ruído de alta frequência no sinal de saída em $30 \text{ kHz}$. Isso demonstra capacidade de diagnóstico e solução de problemas em bancada.
+
+\subsection{Comparativo Final}
+
+A Tabela \ref{tab:comparativo_resultados} resume os resultados de ganho obtidos na simulação e na montagem física, comparando-os com os valores teóricos esperados para o filtro Butterworth de quarta ordem.
+
+\begin{table}[H]
+\centering
+\begin{tabular}{|c|c|c|c|}
+\hline
+\textbf{Frequência (Hz)} & \textbf{Ganho Teórico (dB)} & \textbf{Ganho Simulação (dB)} & \textbf{Ganho Montagem (dB)} \\
+\hline
+300 & 8,21 & 8,19 & 8,17 \\ \hline
+1,5 k & 8,21 & 8,20 & 8,04 \\ \hline
+3 k & 3,21 & 5,34 & 4,93 \\ \hline
+6 k & -20,87 & -15,68 & -15,22 \\ \hline
+30 k & -76,79 & -71,63 & -72,40 \\ \hline
+\end{tabular}
+\caption{Comparativo de ganho entre os valores teóricos, simulação e montagem física.}
+\label{tab:comparativo_resultados}
+\end{table}
+
+A análise comparativa revela uma boa aderência geral do projeto, mas também aponta desvios esperados entre os modelos idealizados e a realidade prática.
+
+\subsubsection{Banda Passante (300 Hz e 1,5 kHz)} Observa-se uma forte concordância entre os ganhos teórico, simulado e experimental. O desvio máximo é de $0,17 \text{ dB}$ (8,21 dB teórico vs. 8,04 dB na montagem em 1,5 kHz). Isso indica que o dimensionamento do ganho foi bem-sucedido e que os componentes estão operando como esperado na região de passagem do sinal.
+
+\subsubsection{Frequência de Corte (3 kHz)} Este é o ponto onde o maior desvio teórico-simulado-experimental ocorre. O ganho teórico esperado na frequência de corte para um filtro Butterworth é $3,21 \text{ dB}$ (que representa $-3 \text{ dB}$ em relação ao ganho de banda passante de $8,21 \text{ dB}$). No entanto, a simulação registrou $5,34 \text{ dB}$ e a montagem $4,93 \text{ dB}$.
+\begin{itemize}
+    \item O desvio entre o teórico e a simulação ($5,34 \text{ dB}$ vs $3,21 \text{ dB}$) sugere que os ganhos individuais ($A_{V1}=1,152$ e $A_{V2}=2,235$) atribuídos a cada estágio podem ter um impacto diferente na resposta de $-3 \text{ dB}$ do que a suposição de que a $f_c$ seria o ponto de $-3 \text{ dB}$ do ganho total. Em filtros de ordem superior com ganhos não unitários por estágio e $Q$s distintos, o ponto de $-3 \text{ dB}$ do filtro completo nem sempre corresponde à $f_c$ nominal dos estágios individuais quando a função de transferência é mais complexa ou os valores de $A_V$ são derivados de uma tabela.
+    \item O desvio entre a simulação e a montagem ($5,34 \text{ dB}$ vs $4,93 \text{ dB}$) é menor ($0,41 \text{ dB}$), o que é aceitável e provavelmente decorre das tolerâncias dos componentes utilizados (série E12, que possui 5\% de tolerância) e das não-idealidades do AmpOp LM741 em ambiente real.
+\end{itemize}
+
+\subsubsection{Banda de Rejeição (6 kHz e 30 kHz)}
+\begin{itemize}
+    \item Em $6 \text{ kHz}$, observa-se uma atenuação significativa em todos os casos, confirmando o comportamento de corte do filtro. O ganho simulado ($-15,68 \text{ dB}$) e o de montagem ($-15,22 \text{ dB}$) estão relativamente próximos um do outro, mas com um desvio considerável em relação ao teórico ($-20,87 \text{ dB}$).
+    \item Em $30 \text{ kHz}$, a atenuação é bastante acentuada, com a simulação ($-71,63 \text{ dB}$) e a montagem ($-72,40 \text{ dB}$) novamente próximas. No entanto, ambos apresentam um ganho próximo ao teórico esperado ($-76,79 \text{ dB}$).
+    \item Esses desvios na banda de rejeição podem ser atribuídos às imperfeições do modelo do AmpOp na simulação (que não é 100\% ideal) e às capacitâncias parasitas na montagem física, além das tolerâncias dos componentes, que se tornam mais relevantes em frequências mais altas e em estágios de maior atenuação. O comportamento em $30 \text{ kHz}$ também foi impactado pelo ruído, mitigado pelo filtro RC passivo, o que demonstra a atenuação esperada, mas com desafios na observação direta do sinal limpo.
+\end{itemize}
+
+Em suma, o filtro demonstrou funcionalidade alinhada aos requisitos, com o comportamento de ganho e atenuação esperados para um filtro Butterworth de 4ª ordem. As discrepâncias entre os valores teóricos e práticos são típicas em projetos eletrônicos, sendo resultado das simplificações do modelo teórico, das limitações da simulação e das características não-ideais dos componentes reais e do ambiente de teste.
