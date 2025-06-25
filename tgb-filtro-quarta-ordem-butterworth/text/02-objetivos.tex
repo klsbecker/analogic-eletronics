@@ -8,24 +8,24 @@ Filtros eletrônicos são circuitos que processam seletivamente sinais baseados 
 \subsubsection{Classificação}
 Filtros são classificados por sua resposta em frequência, topologia e ordem:
 
+\subsubsubsection{Tipos de Resposta}
 \begin{itemize}
-    \item \textbf{Tipos de Resposta:}
-        \begin{itemize}
-            \item \textbf{Passa-Baixas (Low-Pass):} Permitem frequências abaixo do ponto de corte ($f_c$) e atenuam as acima.
-            \item \textbf{Passa-Altas (High-Pass):} Permitem frequências acima de $f_c$ e atenuam as abaixo.
-            \item \textbf{Passa-Faixa (Band-Pass):} Permitem uma faixa específica de frequências, atenuando as abaixo e acima dessa faixa.
-            \item \textbf{Rejeita-Faixa (Band-Stop):} Atuam para atenuar uma faixa específica de frequências, permitindo as abaixo e acima dessa faixa.
-        \end{itemize}
-    \item \textbf{Topologia:}
+    \item \textbf{Passa-Baixas (Low-Pass):} Permitem frequências abaixo do ponto de corte ($f_c$) e atenuam as acima.
+    \item \textbf{Passa-Altas (High-Pass):} Permitem frequências acima de $f_c$ e atenuam as abaixo.
+    \item \textbf{Passa-Faixa (Band-Pass):} Permitem uma faixa específica de frequências, atenuando as abaixo e acima dessa faixa.
+    \item \textbf{Rejeita-Faixa (Band-Stop):} Atuam para atenuar uma faixa específica de frequências, permitindo as abaixo e acima dessa faixa.
+\end{itemize}
+Na figura \ref{fig:resposta_filtro}, são exemplificadas de forma gráfica as respostas em frequência dos filtros anteriormente citados.
+
+\chamaimg{1}{figure/comparativo_filtros.png}{Compativo das Respostas em Frequência dos Filtros.}{fig:resposta_filtro}
+
+\subsubsubsection{Topologia}
         \begin{itemize}
             \item \textbf{Passivos:} Compostos apenas por componentes passivos como resistores, capacitores e indutores. São simples e robustos, mas limitados em ganho e seletividade.
             \item \textbf{Ativos:} Utilizam componentes ativos, como amplificadores operacionais (Amp-Ops), além de outros componentes passivos. Requerem fonte de alimentação, mas permitem a amplificação do sinal, maior flexibilidade no projeto e melhor isolação entre as etapas.
         \end{itemize}
-    \item \textbf{Ordem:}
-        \begin{itemize}
-            \item A ordem do filtro é determinada pela quantidade de elementos reativos (capacitores ou indutores) que efetivamente contribuem para a filtragem. Uma ordem maior resulta em uma transição mais abrupta entre a banda passante e a banda de rejeição. Isso se traduz em uma maior taxa de atenuação fora da banda desejada, por exemplo, 20 dB por década por cada ordem de filtro.
-        \end{itemize}
-\end{itemize}
+\subsubsubsection{Ordem}
+A ordem do filtro é determinada pela quantidade de elementos reativos (capacitores ou indutores) que efetivamente contribuem para a filtragem. Uma ordem maior resulta em uma transição mais abrupta entre a banda passante e a banda de rejeição. Isso se traduz em uma maior taxa de atenuação fora da banda desejada, por exemplo, 20 dB por década por cada ordem de filtro.
 
 \subsubsection{Parâmetros de Projeto}
 Os principais parâmetros a serem considerados no projeto de filtros incluem:

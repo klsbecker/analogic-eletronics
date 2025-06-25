@@ -162,13 +162,14 @@
 \newcounter{magicrowroman}
 \newcommand\rowroman{\stepcounter{magicrowroman}\Roman{magicrowroman}}
 
-\newcommand{\anexo}[3]{ \pagebreak \thispagestyle{empty}
+\newcommand{\anexo}[4]{ \pagebreak \thispagestyle{empty}
     \renewcommand{\figurename}{Anexo}
     \section*{Anexo \rowroman}
-    \ifthenelse{\equal{#3}{y}}{%
-        \begin{figure}[!ht]      \centering
-            \includegraphics[width=.95\textwidth]{append/#1}
-            \caption[]{#2} 
+    \ifthenelse{\equal{#3}{y}}{
+        \begin{figure}[H]      \centering
+            \includegraphics[width=.55\textwidth]{append/#1}
+            \caption[]{#2}
+            \label{fig:#4} 
         \end{figure}
     }{
         \begin{figure}[!ht]      \centering

@@ -164,7 +164,7 @@ Para isso, arbitramos a frequência de corte do filtro RC passivo em 300 KHz, o 
     C = \frac{1}{2 \pi f_c R} = \frac{1}{2 \pi \cdot 300 \cdot 10^3 \cdot 1 \cdot 10^3} = 53,05~pF
 \end{equation}
 
-Utilizando o valor padrão mais próximo, escolhemos $C = 47~pF$. A partir disso, montamos o filtro RC passivo em série com a saída do filtro ativo, de forma que não afete o sinal de saída do filtro ativo, mas que atue como um filtro passa-baixas para o ruído de alta frequência.
+Utilizando o valor padrão mais próximo, escolhemos $C = 47~pF$. A partir disso, montamos o filtro RC passivo em série com a saída do filtro ativo, de forma que não afete o sinal de saída do filtro ativo, mas que atue como um filtro passa-baixas para o ruído de alta frequência. A circuito final do filtro passa-baixas VCVS de quarta ordem com o filtro RC passivo adicionado pode ser visto no Anexo \ref{fig:circuito-final}.
 
 Refizemos os testes com o sinal de entrada de 30 kHz, e agora podemos observar que o ruído foi significativamente reduzido, permitindo uma melhor visualização do sinal de saída. A seguir, apresentamos o gráfico das tensões de entrada e saída do circuito com o filtro RC passivo adicionado.
 
